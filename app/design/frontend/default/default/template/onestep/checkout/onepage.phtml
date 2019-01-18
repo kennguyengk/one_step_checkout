@@ -1,0 +1,70 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Payment
+ * @package    Red_Star_Solution
+ * @copyright  Copyright (c) 2015 KenNguyen <teogk89@gmail.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/onestep/checkout/opcheckout.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/onestep/checkout/directPost.js') ?>"></script>
+<h1>Checkout</h1>
+<p>Welcome to the checkout. Fill in the fields below to complete your purchase!</p>
+<?php if(!$this->isCustomerLoggedIn()): ?>
+    <p>Have an account already? <a href="#" class="show-login-popup">Log in</a></p>
+<?php endif; ?>
+
+<div class="msg error" <?php if(!$this->hasMessages()): ?>style="display:none;"<?php endif;?>>
+    <?php echo $this->getMessagesHtml(); ?>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+        var checkout = new Checkout('<?php echo $this->getStepsJson();?>', 'custom-checkout-form', '<?php echo $this->getUrl('checkout/onepage/success') ?>');
+        checkout.setErrorBlock('div.error');
+    //]]>
+</script>
+
+<div class="checkout-wrap">
+    <div class="checkout-content-wrap">
+        <form id="custom-checkout-form" action="<?php echo $this->getUrl('checkout/onepage/saveOrder')?>" method="post">
+            <?php foreach($this->getSteps() as $_column => $_steps): ?>
+                <div class="checkout-<?php echo $_column ?>-column-wrap">
+                    <?php foreach($_steps as $_stepId => $_stepInfo): ?>
+
+                        <?php if(!$this->getChild($_stepId)): ?>
+                            <?php continue; ?>
+                        <?php endif; ?>
+                        <?php if($_stepId == 'shipping_method'):?>
+                            <div class="shipping-payment-wrap">
+                        <?php endif; ?>
+                        <div class="checkout-content content-<?php echo $_stepId?>" <?php if($_stepId == 'shipping'):?> style="display:none;"<?php endif;?>>
+                            <div class="checkout-content-heading">
+                                <h2><?php echo $_stepInfo['label'] ?></h2>
+                            </div>
+                            <div class="checkout-content-inner">
+                                <?php echo $this->getChildHtml($_stepId) ?>
+                            </div>
+                            <div class="loader"><span></span></div>
+                        </div>
+                        <?php if($_stepId == 'payment'):?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        </form>
+    </div>
+    <div class="all-loader"><span></span></div>
+</div>
+<script type="text/javascript">
+    checkout.accordion.container = $$('.checkout-content-wrap').first();
+</script>
+
+

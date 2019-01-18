@@ -1,0 +1,44 @@
+/********** Checkout steps **********/
+
+
+#checkoutSteps {overflow: hidden;}
+#checkoutSteps .section {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; background: #eeeeee; cursor: not-allowed;}
+
+#checkoutSteps .section.allow.active {background: #f9f3e3; cursor: pointer;}
+#checkoutSteps .section.allow {background: #d0dce1; cursor: pointer;}
+
+#checkoutSteps.opc {border: none;}
+
+#checkoutSteps .step {border:1px solid #bbafa0; border-bottom: none; padding: 20px; background: #fbfaf6;}
+
+#checkoutSteps .step-title {overflow: hidden; border:1px solid #bbafa0; border-bottom: none; background: none; padding: 0;}
+
+#checkoutSteps #opc-review .step,
+#checkoutSteps #opc-review .step-title {border-bottom:1px solid #bbafa0; }
+
+#checkoutSteps #opc-review .step {border-top: none;}
+
+#checkoutSteps .step-title .number {float: left; display: block; padding: 0; margin:5px 5px 0; font: bold 10px/14px Arial, Helvetica, sans-serif; color: #999; background: #ffffff; height: 14px; width: 14px; text-align: center;}
+#checkoutSteps .section.allow.active .step-title .number {background: #f18200; color: #ffffff;}
+#checkoutSteps .section.allow .step-title .number {background: #dbe6eb; color: #a4b3b9;}
+
+#checkoutSteps .step-title h2 {font:bold 12px/24px Arial, Helvetica, sans-serif; margin: 0; padding: 0; color: #999999; float: left;}
+#checkoutSteps .section.allow.active .step-title h2 {color: #f18200;}
+#checkoutSteps .section.allow .step-title h2 {color: #a4b3b9;}
+
+#checkoutSteps .step-title a {display: none;}
+
+#checkoutSteps .sp-methods .form-list {padding: 20px; background: #f9f3e3;}
+
+#checkoutSteps .data-table .product-image {float: left;}
+#checkoutSteps .data-table h3,
+#checkoutSteps .data-table .item-options {margin-left: 60px;}
+
+
+/********** Progress Block **********/
+
+.block-progress dt {font-size: 13px; font-weight: bold; line-height: 1.35; background: #eee; border: 1px solid #a3aeb3; margin: 0 0 6px; padding: 2px 8px; color: #999;}
+.block-progress dt.complete {margin: 0; background: #d0dce1; color: #5e8ab4;}
+
+.block-progress dd {background: #eee; border: 1px solid #a3aeb3; border-top: 0; padding: 8px 13px; margin: 0 0 6px;}
+

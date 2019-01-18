@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Payment
+ * @package    Red_Star_Solution
+ * @copyright  Copyright (c) 2015 KenNguyen <teogk89@gmail.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Onestep_Checkout>
+            <version>1.0.0</version>
+        </Onestep_Checkout>
+    </modules>
+    <global>
+        <fieldsets>
+        </fieldsets>
+        <rewrite>
+            <onestepcheckout_onepage>
+                <from><![CDATA[#^/checkout/onepage/#]]></from>
+                <to>/onestepcheckout/onepage/</to>
+            </onestepcheckout_onepage>
+        </rewrite>
+        <models>
+            <onestepcheckout>
+                <class>Onestep_Checkout_Model</class>
+                <resourceModel>onestepcheckout_resource</resourceModel>
+            </onestepcheckout>
+            <onestepcheckout_resource>
+                <class>Onestep_Checkout_Model_Resource</class>
+                <entities></entities>
+            </onestepcheckout_resource>
+            <checkout>
+                <rewrite>
+                	<type_onepage>Onestep_Checkout_Model_Type_Onepage</type_onepage>
+                </rewrite>
+            </checkout>
+        </models>
+        <resources>
+             <onestepcheckout_setup>
+                <setup>
+                    <module>Onestep_Checkout</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                   <use>core_setup</use>
+               </connection>
+            </onestepcheckout_setup>
+            <onestepcheckout_write>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </onestepcheckout_write>
+            <onestepcheckout_read>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </onestepcheckout_read>
+        </resources>
+        <blocks>
+            <onestepcheckout>
+                <class>Onestep_Checkout_Block</class>
+            </onestepcheckout>
+        </blocks>
+        <helpers>
+            <onestepcheckout>
+                <class>Onestep_Checkout_Helper</class>
+            </onestepcheckout>
+        </helpers>
+        <events>
+            <core_block_abstract_to_html_before>
+				<observers>
+					<onestepcheckout>
+						<type>singleton</type>
+						<class>Onestep_Checkout_Model_Observer</class>
+						<method>getDefaultCheckoutUpdate</method>
+					</onestepcheckout>
+				</observers>
+            </core_block_abstract_to_html_before>
+            <checkout_cart_add_product_complete>
+                <observers>
+                    <onestepcheckout>
+                        <type>singleton</type>
+                        <class>Onestep_Checkout_Model_Observer</class>
+                        <method>productAfterAddToCart</method>
+                    </onestepcheckout>
+                </observers>
+            </checkout_cart_add_product_complete>
+            <controller_action_layout_load_before>
+                <observers>
+                    <onestepcheckout_v2>
+                        <class>Onestep_Checkout_Model_Observer</class>
+                        <method>controllerActionLayoutLoadBefore</method>
+                    </onestepcheckout_v2>
+                </observers>
+            </controller_action_layout_load_before>
+        </events>
+    </global>
+    <adminhtml>
+        <menu></menu>
+        <acl></acl>
+        <events></events>
+        <translate>
+        	<modules>
+                <Onestep_Checkout>
+                    <files>
+                        <default>Onestep_Checkout_Adminhtml.csv</default>
+                    </files>
+                </Onestep_Checkout>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <onestepcheckout>
+                    <file>onestepcheckout.xml</file>
+                </onestepcheckout>
+            </updates>
+        </layout>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <onestepcheckout>
+                <use>standard</use>
+                <args>
+                    <module>Onestep_Checkout</module>
+                    <frontName>onestepcheckout</frontName>
+                </args>
+            </onestepcheckout>
+            <checkout>
+                <use>standard</use>
+                <args>
+                    <modules>
+                        <onestepcheckout before="Mage_Checkout">Onestep_Checkout</onestepcheckout>
+                    </modules>
+                </args>
+            </checkout>
+         </routers>
+        <translate>
+        	<modules>
+                <Onestep_Checkout>
+                    <files>
+                        <default>Onestep_Checkout.csv</default>
+                    </files>
+                </Onestep_Checkout>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <onestepcheckout>
+                    <file>onestepcheckout.xml</file>
+                </onestepcheckout>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <onestepcheckout>
+            <settings>
+                <type>2</type>
+            </settings>
+        </onestepcheckout>
+    </default>
+</config>

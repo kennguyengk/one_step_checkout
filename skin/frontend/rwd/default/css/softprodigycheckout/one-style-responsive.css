@@ -1,0 +1,8 @@
+/********** Media Queries **********/
+
+@media only screen and (max-width: 767px) {
+    .checkout-one-column-wrap {float: none; width: 100%; margin-right: 0%;}
+    .checkout-two-column-wrap { width: 100%; float: none;}
+    .checkout-two-column-wrap .shipping-payment-wrap,
+    .checkout-two-column-wrap .content-review {float:none; width: 100% }
+}

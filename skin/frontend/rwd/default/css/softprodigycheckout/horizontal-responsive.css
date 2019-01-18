@@ -1,0 +1,33 @@
+/********** Media Queries **********/
+
+    /* Smaller than standard 960 (devices and browsers) */
+    @media only screen and (max-width: 1000px) {
+        
+        #checkoutSteps .step-title h2 {font: normal 11px/32px Arial, Helvetica, sans-serif;}
+        #checkoutSteps .step-title .number {margin:11px 2px 0; font: normal 9px/11px Arial, Helvetica, sans-serif; height: 10px; width: 10px;}
+
+    }
+
+    /* All Mobile Sizes (devices and browser) */
+    @media only screen and (max-width: 767px) {
+        
+        #checkoutSteps .step-title h2 {display: none;}
+        #checkoutSteps .step-title .number {float: none; margin:10px auto; font: bold 14px/24px Arial, Helvetica, sans-serif; height: 24px; width: 24px;}
+
+        #checkoutStepsContent .col2-set .col-1,
+        #checkoutStepsContent .col2-set .col-2 {float: none; width: 100%; margin: 0; padding: 0;}
+        
+        #checkoutStepsContent .col2-set .col-1 {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #bbafa0; }
+
+        #checkoutStepsContent .col2-set.block-content .col-1 {margin: 0; padding: 0; border: none;}
+        
+        #checkoutStepsContent .fields .field {width: 100%; float: none;}
+        #checkoutStepsContent .fields .field:first-child .input-box {width: 100%;}
+
+    }
+
+
+
+
+
+

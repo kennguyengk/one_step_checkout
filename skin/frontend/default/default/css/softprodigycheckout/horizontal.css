@@ -1,0 +1,70 @@
+/********** Checkout steps **********/
+
+#checkoutSteps {overflow: hidden;}
+#checkoutSteps .section {border:1px solid #bbafa0; width: 16.6666%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; border-left: 0; float: left; background: #eeeeee; cursor: not-allowed;}
+
+#checkoutSteps.logged-in .section {width: 20%;}
+
+#checkoutSteps .section.allow.active {background: #f9f3e3; cursor: pointer;}
+#checkoutSteps .section.allow {background: #d0dce1; cursor: pointer;}
+
+
+#checkoutSteps .section:first-child {border-left: 1px solid #bbafa0;}
+
+#checkoutSteps .step-title {overflow: hidden;}
+#checkoutSteps .step-title .number {float: left; display: block; padding: 0; margin:9px 5px 0; font: bold 10px/14px Arial, Helvetica, sans-serif; color: #999; background: #ffffff; height: 14px; width: 14px; text-align: center;}
+#checkoutSteps .section.allow.active .step-title .number {background: #f18200; color: #ffffff;}
+#checkoutSteps .section.allow .step-title .number {background: #dbe6eb; color: #a4b3b9;}
+
+#checkoutSteps .step-title h2 {font:bold 12px/32px Arial, Helvetica, sans-serif; margin: 0; padding: 0; color: #999999; float: left;}
+#checkoutSteps .section.allow.active .step-title h2 {color: #f18200;}
+#checkoutSteps .section.allow .step-title h2 {color: #a4b3b9;}
+
+#checkoutSteps .step-title a {display: none;}
+
+
+
+
+/********** Checkout Content **********/
+
+#checkoutStepsContent .step {border:1px solid #bbafa0; padding:20px 10px; background: #fbfaf6; /*border-top: none;*/}
+
+#checkoutStepsContent .col2-set {overflow: hidden;}
+#checkoutStepsContent .col2-set .col-1 {float: left; width: 49%; margin: 0; padding: 0;}
+#checkoutStepsContent .col2-set .col-2 {float: right; width: 49%; margin: 0; padding: 0;}
+
+#checkoutStepsContent .form-list li {margin: 0;}
+#checkoutStepsContent .fields {overflow: hidden;}
+#checkoutStepsContent .fields .field {width: 50%; float: left;}
+
+#checkoutStepsContent .fields .field .input-box,
+#checkoutStepsContent .form-list li.wide .input-box {width: 100%; padding: 0;}
+#checkoutStepsContent .fields .field:first-child .input-box {width: 96%;}
+
+#checkoutStepsContent select,
+#checkoutStepsContent .wide input,
+#checkoutStepsContent .fields .field input {width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; margin:0 0 10px 0;}
+
+#checkoutStepsContent .sp-methods .form-list {padding-top: 20px; background: #f9f3e3;}
+
+#checkoutStepsContent .data-table .product-image {float: left;}
+#checkoutStepsContent .data-table h3,
+#checkoutStepsContent .data-table .item-options {margin-left: 60px;}
+
+.checkout-bar {
+	text-align: center; 
+}
+.checkout-bar .section {
+	display:none;
+}
+.checkout-bar .section.active {
+	display:block;
+}
+.checkout-bar-txt {
+	margin: auto; 
+	width: 800px;
+}
+.checkout-bar-txt li {
+	width:16.66%;
+	float:left;
+}

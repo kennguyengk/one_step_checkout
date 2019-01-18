@@ -1,0 +1,1 @@
+A one page check out for magento site.

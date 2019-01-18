@@ -1,0 +1,91 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Payment
+ * @package    Red_Star_Solution
+ * @copyright  Copyright (c) 2015 KenNguyen <teogk89@gmail.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Checkout') ?></h1>
+</div>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('onestep/accordion.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/onestep/checkout/horizontal/opcheckout.js') ?>"></script>
+<?php $count = count($this->getSteps()); ?>
+<ol class="checkout-bar" <?php if($count == 5): ?> class="logged-in"<?php endif; ?>>
+	<?php 
+		if($count == 5) {
+			$i=1; 
+		} else {
+			$i=0; 
+		}
+	foreach($this->getSteps() as $_stepId => $_stepInfo): 
+	?>
+	<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+	<li class="section section-header opc-<?php echo $_stepId ?><?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+		<img src="<?php echo $this->getSkinUrl('images/onestepcheckout/step'.$i.'.png'); ?>" />
+		<span><?php echo $_stepInfo['label']; ?></span>
+	</li>
+	<?php endforeach ?>
+</ol>
+<ol class="checkout-bar-txt" style="display: none;" >
+	<?php if($count != 5): ?>
+	<li><?php echo $this->__("Checkout Method"); ?></li>
+	<?php else: ?>
+	<li>&nbsp;</li>
+	<?php endif; ?>
+	<li><?php echo $this->__("Billing Information"); ?></li>
+	<li><?php echo $this->__("Shipping Information"); ?></li>
+	<li style="text-align: center;"><?php echo $this->__("Shipping Method"); ?></li>
+	<li style="text-align: center;"><?php echo $this->__("Payment Information"); ?></li>
+	<li style="text-align: center;"><?php echo $this->__("Order Review"); ?></li>
+</ol>
+<ol id="checkoutSteps" style="display:none" <?php if($count == 5): ?> class="logged-in"<?php endif; ?>>
+	<?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+	<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+	 <li class="section section-header opc-<?php echo $_stepId ?><?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+	 	<div class="step-title">
+            <span class="number"><?php echo $i ?></span>
+            <h2><?php echo $_stepInfo['label'] ?></h2>
+            <a href="#"><?php echo $this->__('Edit') ?></a>
+        </div>
+	 
+	 </li>
+<?php endforeach ?>
+</ol>
+
+<ol class="opc" id="checkoutStepsContent" style="margin-top:30px;">
+    <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+        <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+        <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+            <ul class="opc-step-wrap">
+                <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+                    <?php echo $this->getChildHtml($_stepId) ?>
+                </div>
+            </ul>
+
+        </li>
+    <?php endforeach ?>
+</ol>
+<script type="text/javascript">
+//<![CDATA[
+    var accordion = new onestepAccordion('checkoutSteps', '.step-title', true);
+    accordion.setHeaders('.section .section-header');
+    <?php if($this->getActiveStep()): ?>
+    accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+    <?php endif ?>
+    var checkout = new Checkout(accordion,{
+        progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+        review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+        saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+        failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+    );
+//]]>
+</script>

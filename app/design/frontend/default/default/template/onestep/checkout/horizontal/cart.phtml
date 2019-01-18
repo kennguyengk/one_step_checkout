@@ -1,0 +1,172 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Payment
+ * @package    Red_Star_Solution
+ * @copyright  Copyright (c) 2015 KenNguyen <teogk89@gmail.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="cart">
+	<h1><?php echo $this->__('Basket') ?></h1>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+        <fieldset>
+            <table id="shopping-cart-table" class="data-table cart-table">
+               
+            <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                <thead>
+                    <tr>
+                        <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
+                        <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
+                        
+                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Unit Price') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
+                        <th class="a-center mobile-hide" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+
+                    </tr>
+                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                    <tr>
+                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                    </tr>
+                    <?php endif; ?>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="50" class="a-right">
+                            <?php if($this->getContinueShoppingUrl()): ?>
+                                <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+                            <?php endif; ?>
+                            <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Shopping Cart'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+                            <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Clear Shopping Cart'); ?>" class="button btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Clear Shopping Cart'); ?></span></span></button>
+                            <!--[if lt IE 8]>
+                            <input type="hidden" id="update_cart_action_container" />
+                            <script type="text/javascript">
+                            //<![CDATA[
+                                Event.observe(window, 'load', function()
+                                {
+                                    // Internet Explorer (lt 8) does not support value attribute in button elements
+                                    $emptyCartButton = $('empty_cart_button');
+                                    $cartActionContainer = $('update_cart_action_container');
+                                    if ($emptyCartButton && $cartActionContainer) {
+                                        Event.observe($emptyCartButton, 'click', function()
+                                        {
+                                            $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                            $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                            $cartActionContainer.setValue('empty_cart');
+                                        });
+                                    }
+
+                                });
+                            //]]>
+                            </script>
+                            <![endif]-->
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                <?php foreach($this->getItems() as $_item): ?>
+                    <?php echo $this->getItemHtml($_item) ?>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+        </fieldset>
+    </form>
+    <div class="cart-collaterals">
+	
+		<div class="col3-set">
+		
+			<div class="col-1">
+				<div class="accordion-item">
+					<h2 class="accordion-heading">
+						<span class="text"><?php echo $this->__('These products go together'); ?></span>
+						<span class="icon">&#x37;</span>
+					</h2>
+					<div class="accordion-content">
+						<?php echo $this->getChildHtml('crosssell') ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="accordion-item">
+					<h2 class="accordion-heading">
+						<span class="text"><?php echo $this->__('Discount codes'); ?></span>
+						<span class="icon">&#x37;</span>
+					</h2>
+					<div class="accordion-content">
+						<?php echo $this->getChildHtml('coupon') ?>
+					</div>
+				</div>
+				
+				<?php if (!$this->getIsVirtual()): ?>
+					<div class="accordion-item">
+						<h2 class="accordion-heading">
+							<span class="text"><?php echo $this->__('Estimate Shipping and Tax'); ?></span>
+							<span class="icon">&#x37;</span>
+						</h2>
+						<div class="accordion-content">
+							<?php echo $this->getChildHtml('shipping'); ?>
+						</div>
+					</div>
+				<?php endif; ?>
+				
+			</div>
+			<div class="col-3">
+				<div class="totals">
+	                <?php echo $this->getChildHtml('totals'); ?>
+	                <?php if(!$this->hasError()): ?>
+	                <ul class="checkout-types">
+	                <?php foreach ($this->getMethods('methods') as $method): ?>
+	                    <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+	                    <li><?php echo $methodHtml; ?></li>
+	                    <?php endif; ?>
+	                <?php endforeach; ?>
+	                </ul>
+	                <?php endif; ?>
+	            </div>
+			</div>
+			
+		</div> <?php /* END col3-set */ ?>
+		
+	</div> <?php /* END cart-collaterals */ ?>
+	<script type="text/javascript">
+		
+		var $jj = jQuery.noConflict();
+		var winWidth = $jj(window).width();
+		$jj(document).ready(function() {
+			adjustAccordion();
+			$jj('.accordion-heading').on('click',function(){
+				$jj(this).next('.accordion-content').slideToggle();
+				$jj(this).toggleClass('active');
+				var txt = $jj(this).hasClass('active') ? '8' : '7';
+                $jj(this).find('.icon').text(txt);
+			})
+		});
+		$jj(window).bind('resize orientationchange', function() {
+	        winWidth = document.body.clientWidth;
+	        adjustAccordion();
+	    });
+		
+		var adjustAccordion = function() {
+			if (winWidth < 768) {
+				$jj('body').addClass('cart-accordion');
+				$jj('body').removeClass('no-cart-accordion');
+			} else if (dbcw >= 768) {
+				$jj('body').removeClass('cart-accordion');
+				$jj('body').addClass('no-cart-accordion');
+			}
+		}
+		
+	</script>
+</div>
